@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
-using Volo.Abp.Domain.Values;
 
-namespace ReservationSystem.Reservation
+namespace ReservationSystem.Reservations
 {
-    public class ReservationItem : ValueObject
+    public class ReservationItem : Entity<Guid>
     {
         public Guid ReservationId { get; private set; }
 
@@ -26,7 +21,8 @@ namespace ReservationSystem.Reservation
 
         public Enum.Status Status { get; private set; }
 
-        public ReservationItem(
+        internal ReservationItem(
+            Guid id,
             Guid reservationId,
             Guid resourceId,
             DateTime startTime,
@@ -35,7 +31,7 @@ namespace ReservationSystem.Reservation
             DateTime? returnTime,
             int? overDue,
             Enum.Status status
-            )
+            ) : base(id)
         {
             ReservationId = reservationId;
             ResourceId = resourceId;
@@ -52,16 +48,16 @@ namespace ReservationSystem.Reservation
 
         }
 
-        protected override IEnumerable<object> GetAtomicValues()
-        {
-            yield return ReservationId;
-            yield return ResourceId;
-            yield return StartTime;
-            yield return RequestedHours;
-            yield return EndTime;
-            yield return ReturnTime;
-            yield return OverDue;
-            yield return Status;   
-        }
+        //protected override IEnumerable<object> GetAtomicValues()
+        //{
+        //    yield return ReservationId;
+        //    yield return ResourceId;
+        //    yield return StartTime;
+        //    yield return RequestedHours;
+        //    yield return EndTime;
+        //    yield return ReturnTime;
+        //    yield return OverDue;
+        //    yield return Status;
+        //}
     }
 }

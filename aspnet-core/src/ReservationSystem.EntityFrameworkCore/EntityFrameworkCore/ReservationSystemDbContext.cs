@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ReservationSystem.Reservations;
 using ReservationSystem.Users;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
@@ -21,6 +22,14 @@ namespace ReservationSystem.EntityFrameworkCore
     public class ReservationSystemDbContext : AbpDbContext<ReservationSystemDbContext>
     {
         public DbSet<AppUser> Users { get; set; }
+
+        public DbSet<Resource> Resources { get; set; }
+
+        public DbSet<Reservation> Reservations { get; set; }
+
+        public DbSet<ReservationItem> ReservationItems { get; set; }
+
+        public DbSet<OverduePayment> OverduePayments { get; set; }
 
         /* Add DbSet properties for your Aggregate Roots / Entities here.
          * Also map them inside ReservationSystemDbContextModelCreatingExtensions.ConfigureReservationSystem
