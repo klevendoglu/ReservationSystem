@@ -3,6 +3,8 @@
   "texts": {
     "Menu:Home": "Home",
     "Welcome": "Welcome",
-    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io."
+    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
+    "Resource:ResourceWithSameNameExists": "A Resource with the same name is already exists.",
+    "Resource:ManagersConcurrentResourceLimit": "A manager can have 5 resources at most."
   }
 }

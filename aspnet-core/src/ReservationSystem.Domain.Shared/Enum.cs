@@ -25,5 +25,13 @@ namespace ReservationSystem
             Dropped,
             Withdrawn //15
         }
+
+        public enum ResourceCategory
+        {
+            StudioOrStudioEquipment = 1,
+            MeetingRoom,
+            LectureHall,
+            LibraryRoom //4
+        }
     }
 }

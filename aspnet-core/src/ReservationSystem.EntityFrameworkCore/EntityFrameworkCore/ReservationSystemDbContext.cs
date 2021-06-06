@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReservationSystem.Reservations;
+using ReservationSystem.Resources;
 using ReservationSystem.Users;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;

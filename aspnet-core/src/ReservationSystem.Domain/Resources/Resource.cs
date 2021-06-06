@@ -4,33 +4,32 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace ReservationSystem.Reservations
+namespace ReservationSystem.Resources
 {
     public class Resource : FullAuditedAggregateRoot<Guid>
     {
         public string Name { get; private set; }
 
-        public string Location { get; private set; }
+        public string Location { get; set; }
 
-        public string Description { get; private set; }
+        public string Description { get; set; }
 
-        public string Image { get; private set; }
+        public string Image { get; set; }
 
-        public string Serial { get; private set; }
+        public string Serial { get; set; }
 
         public Guid ManagerId { get; private set; }
 
-        public byte Category { get; private set; }
+        public byte Category { get; set; }
 
         public Guid? ParentId { get; private set; }
 
-        public int MaxReservationHours { get; private set; }
+        public int MaxReservationHours { get; set; }
 
-        public bool CanBeUsedForEvents { get; private set; }
-
-        internal Resource(
+        public Resource(
             Guid id,
             string name,
             string location,
@@ -40,8 +39,7 @@ namespace ReservationSystem.Reservations
             Guid managerId,
             byte category,
             Guid? parentId,
-            int maxReservationHours,
-            bool canBeUsedForEvents
+            int maxReservationHours
             ) : base(id)
         {
             Name = name;
@@ -53,12 +51,23 @@ namespace ReservationSystem.Reservations
             Category = category;
             ParentId = parentId;
             MaxReservationHours = maxReservationHours;
-            CanBeUsedForEvents = canBeUsedForEvents;
         }
 
-        private Resource()
-        {
+        private Resource() { }
 
+        internal void SetName(string name)
+        {
+            Name = Check.NotNullOrWhiteSpace(name, nameof(name));
+        }
+
+        internal void SetParent(Guid id)
+        {
+            ParentId = id;
+        }
+
+        internal void SetManager(Guid id)
+        {
+            ManagerId = id;
         }
     }
 }

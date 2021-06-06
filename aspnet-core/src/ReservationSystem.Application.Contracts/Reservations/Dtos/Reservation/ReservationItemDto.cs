@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReservationSystem.Resources.Dtos.Resource;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,9 +7,11 @@ namespace ReservationSystem.Reservations.Dtos.Reservation
 {
     public class ReservationItemDto
     {
-        public int ReservationId { get; set; }
+        public Guid ReservationId { get; set; }
 
-        public int ResourceId { get; set; }
+        public Guid ResourceId { get; set; }
+
+        public ResourceDto Resource { get; set; }
 
         public DateTime StartTime { get; set; }
 

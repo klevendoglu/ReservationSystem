@@ -9,9 +9,9 @@ namespace ReservationSystem.Reservations
 {
     public interface IReservationSystemAppService : IApplicationService
     {
-        //Task<List<ReservationItemWithReservationAndResourceListDto>> CreateReservation(CreateReservationInputDto input);
+        Task<ReservationDto> CreateReservation(CreateReservationInputDto input);
 
-        //Task<List<ReservationItemWithReservationAndResourceListDto>> CreateRecurringReservation(CreateRecurringReservationInput input);
+        Task<ReservationDto> CreateRecurringReservation(CreateRecurringReservationInput input);
 
         Task UpdateReservation(UpdateReservationInputDto input);
 

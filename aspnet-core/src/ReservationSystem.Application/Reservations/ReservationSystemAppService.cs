@@ -26,7 +26,17 @@ namespace ReservationSystem.Reservations
             _userRepository = userRepository;
         }
 
-        public Task DeleteReservation(Guid id)
+        public Task<ReservationDto> CreateReservation(CreateReservationInputDto input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ReservationDto> CreateRecurringReservation(CreateRecurringReservationInput input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateReservation(UpdateReservationInputDto input)
         {
             throw new NotImplementedException();
         }
@@ -36,14 +46,15 @@ namespace ReservationSystem.Reservations
             throw new NotImplementedException();
         }
 
+        public Task DeleteReservation(Guid id)
+        {
+            throw new NotImplementedException();
+        } 
+
         public Task ReturnReservation(ReturnReservationInputDto input)
         {
             throw new NotImplementedException();
         }
-
-        public Task UpdateReservation(UpdateReservationInputDto input)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
