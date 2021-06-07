@@ -18,24 +18,18 @@ namespace ReservationSystem.Reservations
             _reservationRepository = reservationRepository;
         }
 
-        //public async Task<Reservation> CreateAsync(
-        //    string reserverNote,
-        //    Enum.Status status,
-        //    string title,
-        //    string text = null)
-        //{
-        //    if (await _reservationRepository.AnyAsync(i => i.Title == title))
-        //    {
-        //        throw new BusinessException("IssueTracking:IssueWithSameTitleExists");
-        //    }
+        public async Task<Reservation> CreateAsync(
+            string reserverNote,
+            Enum.Status status,
+            string managerNote = null)
+        {
 
-        //    return new Reservation(
-        //        GuidGenerator.Create(),
-        //        status,
-        //        reserverNote,
-        //        title,
-        //        text
-        //    );
-        //}
+            return new Reservation(
+                GuidGenerator.Create(),
+                status,
+                reserverNote,
+                managerNote
+            );
+        }
     }
 }
