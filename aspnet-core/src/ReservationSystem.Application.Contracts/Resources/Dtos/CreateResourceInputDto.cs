@@ -1,30 +1,29 @@
-﻿using ReservationSystem.Resources.Consts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace ReservationSystem.Resources.Dtos
 {
-    public class UpdateResourceInput
+    public class CreateResourceInputDto
     {
-        public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(ResourcesConsts.MaxNameLength)]
+        [MaxLength(ResourceConsts.MaxNameLength)]
         public string Name { get; set; }
 
-        [MaxLength(ResourcesConsts.MaxNameLength)]
+        [MaxLength(ResourceConsts.MaxNameLength)]
         public string Location { get; set; }
 
-        [MaxLength(ResourcesConsts.MaxDescriptionLength)]
+        [MaxLength(ResourceConsts.MaxDescriptionLength)]
         public string Description { get; set; }
 
         public string Image { get; set; }
 
-        [MaxLength(ResourcesConsts.MaxSerialLength)]
+        [MaxLength(ResourceConsts.MaxSerialLength)]
         public string Serial { get; set; }
 
+        [Required]
         public int MaxReservationHours { get; set; }
 
         [Required]

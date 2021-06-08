@@ -31,7 +31,7 @@ namespace ReservationSystem.Resources
                 throw new BusinessException("Resource:ResourceWithSameNameExists");
             }
 
-            resource.SetName(name);
+            resource.ChangeName(name);
         }
 
         public async Task AssignManager(Resource resource, AppUser user)

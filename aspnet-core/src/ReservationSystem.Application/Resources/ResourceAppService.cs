@@ -29,26 +29,26 @@ namespace ReservationSystem.Resources
             _userRepository = userRepository;
         }
 
-        public async Task<ResourceDto> CreateAsync(CreateResourceInput input)
+        public async Task<ResourceDto> CreateAsync(CreateResourceInputDto input)
         {
             var resource = new Resource(
                     GuidGenerator.Create(),
                     input.Name,
-                    input.Location,
-                    input.Description,
-                    input.Image,
-                    input.Serial,
                     input.ManagerId,
                     input.Category,
                     input.ParentId,
-                    input.MaxReservationHours
+                    input.MaxReservationHours,
+                    input.Location,
+                    input.Serial,
+                    input.Image,
+                    input.Description
             );
 
             await _resourceRepository.InsertAsync(resource);
             return ObjectMapper.Map<Resource, ResourceDto>(resource);
         }
 
-        public async Task<ResourceDto> UpdateAsync(UpdateResourceInput input)
+        public async Task<ResourceDto> UpdateAsync(UpdateResourceInputDto input)
         {
             var resource = await _resourceRepository.GetAsync(input.Id);
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -31,33 +32,43 @@ namespace ReservationSystem.Resources
 
         public Resource(
             Guid id,
-            string name,
-            string location,
-            string description,
-            string image,
-            string serial,
+            [NotNull] string name,
             Guid managerId,
             byte category,
             Guid? parentId,
-            int maxReservationHours
+            int maxReservationHours,
+            [CanBeNull] string location = null,
+            [CanBeNull] string serial = null,
+            [CanBeNull] string image = null,
+            [CanBeNull] string description = null
             ) : base(id)
         {
-            Name = name;
+            SetName(name);
             Location = location;
-            Description = description;
-            Image = image;
             Serial = serial;
-            ManagerId = managerId;
+            SetManager(managerId);
             Category = category;
             ParentId = parentId;
             MaxReservationHours = maxReservationHours;
+            Image = image;
+            Description = description;
         }
 
         private Resource() { }
 
-        internal void SetName(string name)
+        internal void SetName([NotNull] string name)
         {
-            Name = Check.NotNullOrWhiteSpace(name, nameof(name));
+            Name = Check.NotNullOrWhiteSpace(
+                name,
+                nameof(name),
+                maxLength: ResourceConsts.MaxNameLength
+            );
+        }
+
+        internal Resource ChangeName([NotNull] string name)
+        {
+            SetName(name);
+            return this;
         }
 
         internal void SetParent(Guid id)

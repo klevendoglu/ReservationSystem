@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using ReservationSystem.Resources;
+using ReservationSystem.Resources.Dtos;
+using ReservationSystem.Resources.Dtos.Resource;
 
 namespace ReservationSystem
 {
@@ -9,6 +12,9 @@ namespace ReservationSystem
             /* You can configure your AutoMapper mapping configuration here.
              * Alternatively, you can split your mapping configurations
              * into multiple profile classes for a better organization. */
+            CreateMap<Resource, ResourceDto>();
+            CreateMap<CreateResourceInputDto, Resource>();
+            CreateMap<UpdateResourceInputDto, Resource>();
         }
     }
 }

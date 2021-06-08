@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ReservationSystem.Resources.Consts
+namespace ReservationSystem.Resources
 {
-    public class ResourcesConsts
+    public static class ResourceConsts
     {
         public const int MaxNameLength = 250;
         public const int MaxDescriptionLength = 1000;

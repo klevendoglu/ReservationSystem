@@ -13,8 +13,8 @@ namespace ReservationSystem.Resources
 {
     public interface IResourceAppService : IApplicationService
     {
-        Task<ResourceDto> CreateAsync(CreateResourceInput input);
-        Task<ResourceDto> UpdateAsync(UpdateResourceInput input);
+        Task<ResourceDto> CreateAsync(CreateResourceInputDto input);
+        Task<ResourceDto> UpdateAsync(UpdateResourceInputDto input);
         Task DeleteResource(Guid id);
         Task<ResourceDto> GetResourceAsync(Guid id);
         Task<ResourceDto> CheckResourceAvailability(CreateReservationItemInputDto input);
