@@ -28,10 +28,6 @@ namespace ReservationSystem.EntityFrameworkCore
             {
                 b.ToTable("Reservations", ReservationSystemConsts.DbSchema);
                 b.ConfigureByConvention(); //auto configure for the base class props
-                //b.HasMany(x => x.ReservationItems)
-                //    .WithOne(x => x.Re)
-                //    .HasForeignKey(x => x.ReservationId)
-                //    .IsRequired();
 
             });
 
