@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,11 +23,11 @@ namespace ReservationSystem.Reservations
         internal Reservation(
             Guid id,
             Enum.Status status,
-            string reserverNote = null,
-            string managerNote = null
+            [NotNull] string reserverNote,
+            [CanBeNull] string managerNote = null
             ) : base(id)
         {
-            ReserverNote = reserverNote; //Allow empty/null
+            ReserverNote = reserverNote;
             ManagerNote = managerNote;
             Status = status;
 
@@ -34,6 +35,6 @@ namespace ReservationSystem.Reservations
             OverduePayments = new Collection<OverduePayment>();
         }
 
-        private Reservation() { /* Empty constructor is for ORMs */ }
+        private Reservation() { }
     }
 }

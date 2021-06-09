@@ -19,6 +19,33 @@ namespace ReservationSystem.Resources
             _resourceRepository = resourceRepository;
         }
 
+        public async Task<Resource> CreateAsync(
+            string name,
+            Guid managerId,
+            byte category,
+            int maxReservationHours,
+            Guid? parentId = null,
+            string location = null,
+            string serial = null,
+            string image = null,
+            string description = null
+            )
+        {
+
+            return new Resource(
+                GuidGenerator.Create(),
+                name,
+                managerId,
+                category,
+                maxReservationHours,
+                parentId,
+                location,
+                serial,
+                image,
+                description
+            );
+        }
+
         public async Task ChangeNameAsync(Resource resource, string name)
         {
             if (resource.Name == name)

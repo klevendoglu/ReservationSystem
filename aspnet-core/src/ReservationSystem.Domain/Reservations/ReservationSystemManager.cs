@@ -19,16 +19,14 @@ namespace ReservationSystem.Reservations
         }
 
         public async Task<Reservation> CreateAsync(
-            string reserverNote,
-            Enum.Status status,
-            string managerNote = null)
+            string reserverNote        
+            )
         {
 
             return new Reservation(
                 GuidGenerator.Create(),
-                status,
-                reserverNote,
-                managerNote
+                Enum.Status.Pending,
+                reserverNote
             );
         }
     }

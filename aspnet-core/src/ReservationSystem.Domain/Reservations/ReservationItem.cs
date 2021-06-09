@@ -5,59 +5,45 @@ namespace ReservationSystem.Reservations
 {
     public class ReservationItem : Entity<Guid>
     {
-        public Guid ReservationId { get; private set; }
+        public Guid ReservationId { get; set; }
 
-        public Guid ResourceId { get; private set; }
+        public Guid ResourceId { get; set; }
 
-        public DateTime StartTime { get; private set; }
+        public DateTime StartTime { get; set; }
 
-        public int RequestedHours { get; private set; }
+        public int RequestedHours { get; set; }
 
-        public DateTime EndTime { get; private set; }
+        public DateTime EndTime { get; set; }
 
-        public DateTime? ReturnTime { get; private set; }
+        public DateTime? ReturnTime { get; set; }
 
-        public int? OverDue { get; private set; }
+        public int? OverDue { get; set; }
 
-        public Enum.Status Status { get; private set; }
+        public Enum.Status Status { get; set; }
 
-        internal ReservationItem(
-            Guid id,
-            Guid reservationId,
-            Guid resourceId,
-            DateTime startTime,
-            int requestedHours,
-            DateTime endTime,
-            DateTime? returnTime,
-            int? overDue,
-            Enum.Status status
-            ) : base(id)
-        {
-            ReservationId = reservationId;
-            ResourceId = resourceId;
-            StartTime = startTime;
-            RequestedHours = requestedHours;
-            EndTime = endTime;
-            ReturnTime = returnTime;
-            OverDue = overDue;
-            Status = status;
-        }
-
-        private ReservationItem()
-        {
-
-        }
-
-        //protected override IEnumerable<object> GetAtomicValues()
+        //public ReservationItem(
+        //    Guid id,
+        //    Guid reservationId,
+        //    Guid resourceId,
+        //    DateTime startTime,
+        //    int requestedHours,
+        //    DateTime endTime,
+        //    DateTime? returnTime,
+        //    int? overDue,
+        //    Enum.Status status
+        //    ) : base(id)
         //{
-        //    yield return ReservationId;
-        //    yield return ResourceId;
-        //    yield return StartTime;
-        //    yield return RequestedHours;
-        //    yield return EndTime;
-        //    yield return ReturnTime;
-        //    yield return OverDue;
-        //    yield return Status;
+        //    ReservationId = reservationId;
+        //    ResourceId = resourceId;
+        //    StartTime = startTime;
+        //    RequestedHours = requestedHours;
+        //    EndTime = endTime;
+        //    ReturnTime = returnTime;
+        //    OverDue = overDue;
+        //    Status = status;
         //}
+
+        //private ReservationItem() { }
+
     }
 }

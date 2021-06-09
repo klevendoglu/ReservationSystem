@@ -31,13 +31,12 @@ namespace ReservationSystem.Resources
 
         public async Task<ResourceDto> CreateAsync(CreateResourceInputDto input)
         {
-            var resource = new Resource(
-                    GuidGenerator.Create(),
+            var resource = await _resourceManager.CreateAsync(
                     input.Name,
                     input.ManagerId,
                     input.Category,
-                    input.ParentId,
                     input.MaxReservationHours,
+                    input.ParentId,
                     input.Location,
                     input.Serial,
                     input.Image,

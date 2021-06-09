@@ -32,8 +32,7 @@ namespace ReservationSystem.Reservations
         public async Task<ReservationDto> CreateReservationAsync(CreateReservationInputDto input)
         {
             var reservation = await _reservationSystemManager.CreateAsync(
-                input.ReserverNotes,
-                input.Status
+                input.ReserverNotes
             );
 
             //TODO://Perform AddReservationItem in manager class.

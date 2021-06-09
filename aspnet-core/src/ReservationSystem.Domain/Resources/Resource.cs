@@ -30,13 +30,13 @@ namespace ReservationSystem.Resources
 
         public int MaxReservationHours { get; set; }
 
-        public Resource(
+        internal Resource(
             Guid id,
             [NotNull] string name,
             Guid managerId,
             byte category,
-            Guid? parentId,
             int maxReservationHours,
+            Guid? parentId,
             [CanBeNull] string location = null,
             [CanBeNull] string serial = null,
             [CanBeNull] string image = null,
@@ -48,8 +48,8 @@ namespace ReservationSystem.Resources
             Serial = serial;
             SetManager(managerId);
             Category = category;
-            ParentId = parentId;
             MaxReservationHours = maxReservationHours;
+            ParentId = parentId;
             Image = image;
             Description = description;
         }
