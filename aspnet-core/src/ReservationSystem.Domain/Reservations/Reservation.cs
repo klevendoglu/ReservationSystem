@@ -19,6 +19,7 @@ namespace ReservationSystem.Reservations
         public ICollection<ReservationItem> ReservationItems { get; set; }
 
         public ICollection<OverduePayment> OverduePayments { get; set; }
+        private Reservation() { }
 
         internal Reservation(
             Guid id,
@@ -35,6 +36,11 @@ namespace ReservationSystem.Reservations
             OverduePayments = new Collection<OverduePayment>();
         }
 
-        private Reservation() { }
+
+
+        internal void AddReservationItem(ReservationItem reservationItem)
+        {
+            ReservationItems.Add(reservationItem);
+        }
     }
 }

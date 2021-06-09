@@ -35,7 +35,7 @@ namespace ReservationSystem.EntityFrameworkCore
             {
                 b.ToTable("ReservationItems", ReservationSystemConsts.DbSchema);
                 b.ConfigureByConvention(); //auto configure for the base class props
-                b.HasOne<Reservation>().WithMany().HasForeignKey(x => x.ReservationId).IsRequired();
+                //b.HasOne<Reservation>().WithMany().HasForeignKey(x => x.ReservationId).IsRequired();
             });
 
             builder.Entity<OverduePayment>(b =>

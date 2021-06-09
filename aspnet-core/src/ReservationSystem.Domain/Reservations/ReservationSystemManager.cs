@@ -19,7 +19,7 @@ namespace ReservationSystem.Reservations
         }
 
         public async Task<Reservation> CreateAsync(
-            string reserverNote        
+            string reserverNote
             )
         {
 
@@ -28,6 +28,11 @@ namespace ReservationSystem.Reservations
                 Enum.Status.Pending,
                 reserverNote
             );
+        }
+
+        public async Task AddReservationItem(Reservation reservation, ReservationItem reservationItem)
+        {
+            //TODO: Business rules
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ReservationSystem.Reservations;
 using ReservationSystem.Resources;
+using ReservationSystem.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace ReservationSystem
         private readonly IRepository<Reservation, Guid> _reservationRepository;
         private readonly IRepository<ReservationItem, Guid> _reservationItemRepository;
         private readonly IRepository<Resource, Guid> _resourceRepository;
+        private readonly IRepository<AppUser, Guid> _userRepository;
 
         private readonly ReservationSystemManager _reservationSystemManager;
         private readonly ResourceManager _resourceManager;
@@ -24,6 +26,7 @@ namespace ReservationSystem
             IRepository<Reservation, Guid> reservationRepository,
             IRepository<ReservationItem, Guid> reservationItemRepository,
             IRepository<Resource, Guid> resourceRepository,
+            IRepository<AppUser, Guid> userRepository,
             ReservationSystemManager reservationSystemManager,
             ResourceManager resourceManager
             )
@@ -31,6 +34,7 @@ namespace ReservationSystem
             _reservationRepository = reservationRepository;
             _reservationItemRepository = reservationItemRepository;
             _resourceRepository = resourceRepository;
+            _userRepository = userRepository;
 
             _reservationSystemManager = reservationSystemManager;
             _resourceManager = resourceManager;
@@ -49,14 +53,14 @@ namespace ReservationSystem
                     )
             );
 
-            //var user1 =
+            var user1 = await _userRepository.FirstOrDefaultAsync();
 
             var resource1 = await _resourceRepository.InsertAsync(
                await _resourceManager.CreateAsync(
-                   "Camera",
-                   Guid.NewGuid(),
-                   new byte { },
-                   5
+                   name: "Camera",
+                   managerId: user1.Id,
+                   category: new byte { },
+                   maxReservationHours: 5
                 )
             );
 
@@ -67,6 +71,7 @@ namespace ReservationSystem
                      RequestedHours = 1,
                      ResourceId = resource1.Id,
                      StartTime = DateTime.Now,
+                     EndTime = DateTime.Now.AddHours(1),
                      Status = Enum.Status.Pending
                  },
                  autoSave: true

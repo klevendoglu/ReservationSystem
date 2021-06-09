@@ -56,11 +56,11 @@ namespace ReservationSystem.Resources
             if (input.ParentId.HasValue)
             {
                 var parentResource = await _resourceRepository.GetAsync(input.ParentId.Value);
-                await _resourceManager.AssignParent(resource, parentResource);
+                await _resourceManager.AssignParentAsync(resource, parentResource);
             }
 
             var user = await _userRepository.GetAsync(input.ManagerId);
-            await _resourceManager.AssignManager(resource, user);
+            await _resourceManager.AssignManagerAsync(resource, user);
 
             resource.Location = input.Location;
             resource.Description = input.Description;

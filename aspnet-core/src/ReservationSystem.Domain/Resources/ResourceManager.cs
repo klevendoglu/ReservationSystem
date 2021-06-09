@@ -61,7 +61,7 @@ namespace ReservationSystem.Resources
             resource.ChangeName(name);
         }
 
-        public async Task AssignManager(Resource resource, AppUser user)
+        public async Task AssignManagerAsync(Resource resource, AppUser user)
         {
             var managersResourceCount = await _resourceRepository.CountAsync(
                 i => i.ManagerId == user.Id
@@ -75,7 +75,7 @@ namespace ReservationSystem.Resources
             resource.SetManager(user.Id);
         }
 
-        public async Task AssignParent(Resource resource, Resource parent)
+        public async Task AssignParentAsync(Resource resource, Resource parent)
         {
             if (resource.Id == parent.Id)
             {
