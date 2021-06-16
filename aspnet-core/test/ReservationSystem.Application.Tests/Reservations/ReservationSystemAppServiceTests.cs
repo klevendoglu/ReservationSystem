@@ -48,7 +48,7 @@ namespace ReservationSystem.Reservations
             };
 
             //Act
-            var result = await _reservationSystemAppService.CreateReservationAsync(input);
+            var result = await _reservationSystemAppService.CreateAsync(input);
 
             //Assert
             Assert.NotNull(result);

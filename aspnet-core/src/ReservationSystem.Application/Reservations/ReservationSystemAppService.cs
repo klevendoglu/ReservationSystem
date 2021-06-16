@@ -29,25 +29,32 @@ namespace ReservationSystem.Reservations
             _userRepository = userRepository;
         }
 
-        public async Task<ReservationDto> CreateReservationAsync(CreateReservationInputDto input)
+        public async Task<ReservationDto> CreateAsync(CreateReservationInputDto input)
         {
-            var reservation = await _reservationSystemManager.CreateAsync(
-                input.ReserverNotes
+            var reservation = _reservationSystemManager.Create(
+                input.ReserverNotes,
+                input.RequestedItems.Count
             );
 
-            //TODO://Perform AddReservationItem in manager class.
+            var reservationItems = new List<ReservationItem>();
+            for (int i = 0; i < input.RequestedItems.Count; i++)
+            {
+                var requestedItem = input.RequestedItems.ElementAt(i);
+                var reservationItem = _reservationSystemManager.CreateReservationItem(
+                    reservation.Id,
+                    requestedItem.ResourceId,
+                    requestedItem.StartTime,
+                    requestedItem.EndTime,
+                    requestedItem.RequestedHours
+                    );
+                reservationItems.Add(reservationItem);
+            }
 
-            //var reservationItemsQueryable = await _reservationItemRepository.GetQueryableAsync();
-            //var itemsInUse = AsyncExecuter.ToListAsync(
-            //    reservationItemsQueryable
-            //        .Where(
-            //            new InActiveIssueSpecification()
-            //                .And(new MilestoneSpecification(milestoneId))
-            //                .ToExpression()
-            //        )
-            //);
+            await _reservationSystemManager.AddReservationItems(reservation, reservationItems);
 
-            throw new NotImplementedException();
+            await _reservationRepository.InsertAsync(reservation);
+
+            return ObjectMapper.Map<Reservation, ReservationDto>(reservation);
         }
 
         public Task<ReservationDto> CreateRecurringReservationAsync(CreateRecurringReservationInput input)
@@ -55,7 +62,7 @@ namespace ReservationSystem.Reservations
             throw new NotImplementedException();
         }
 
-        public Task UpdateReservationAsync(UpdateReservationInputDto input)
+        public Task UpdateAsync(UpdateReservationInputDto input)
         {
             throw new NotImplementedException();
         }
@@ -65,12 +72,12 @@ namespace ReservationSystem.Reservations
             throw new NotImplementedException();
         }
 
-        public Task DeleteReservationAsync(Guid id)
+        public Task ReturnReservationAsync(ReturnReservationInputDto input)
         {
             throw new NotImplementedException();
         }
 
-        public Task ReturnReservationAsync(ReturnReservationInputDto input)
+        public Task DeleteAsync(Guid id)
         {
             throw new NotImplementedException();
         }

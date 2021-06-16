@@ -9,16 +9,16 @@ namespace ReservationSystem.Reservations
 {
     public interface IReservationSystemAppService : IApplicationService
     {
-        Task<ReservationDto> CreateReservationAsync(CreateReservationInputDto input);
+        Task<ReservationDto> CreateAsync(CreateReservationInputDto input);
 
         Task<ReservationDto> CreateRecurringReservationAsync(CreateRecurringReservationInput input);
 
-        Task UpdateReservationAsync(UpdateReservationInputDto input);
+        Task UpdateAsync(UpdateReservationInputDto input);
 
         Task ProcessReservationAsync(ProcessReservationInput input);
 
         Task ReturnReservationAsync(ReturnReservationInputDto input);
 
-        Task DeleteReservationAsync(Guid id);
+        Task DeleteAsync(Guid id);
     }
 }

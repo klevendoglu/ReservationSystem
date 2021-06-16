@@ -5,6 +5,9 @@
     "Welcome": "Hoşgeldiniz",
     "LongWelcomeMessage": "Uygulamaya hoşgeldiniz. Bu, ABP framework'ü üzerine bina edilmiş bir başlangıç projesidir. Daha fazla bilgi için abp.io adresini ziyaret edebilirsiniz.",
     "Resource:ResourceWithSameNameExists": "Aynı isimde başka bir kaynak bulunmaktadır.",
-    "Resource:ManagersConcurrentResourceLimit": "Bir yönetici en fazla 5 kaynağa sahip olabilir."
+    "Resource:ManagersConcurrentResourceLimit": "Bir yönetici en fazla 5 kaynağa sahip olabilir.",
+    "Reservation:ReservationItemsShouldBeGreaterThanZero": "Rezervasyon oluşturmak için en az bir adet ekipman eklenmelidir!",
+    "Reservation:ReservationItemAvailabilityHours": "Rezervasyon hafta içi mesai saatleri içerisinde yapılabilir.",
+    "Reservation:ConflictingItemFound": "Çakışan rezervasyon ekipmanı bulundu."
   }
 }

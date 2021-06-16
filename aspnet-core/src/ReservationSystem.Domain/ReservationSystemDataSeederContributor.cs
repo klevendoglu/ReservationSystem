@@ -48,8 +48,9 @@ namespace ReservationSystem
             }
 
             var reservation1 = await _reservationRepository.InsertAsync(
-                await _reservationSystemManager.CreateAsync(
-                    "Should reserve this camera"
+                _reservationSystemManager.Create(
+                    "Should reserve this camera",
+                    requestedItemCount: 1
                     )
             );
 
@@ -65,15 +66,13 @@ namespace ReservationSystem
             );
 
             await _reservationItemRepository.InsertAsync(
-                 new ReservationItem
-                 {
-                     ReservationId = reservation1.Id,
-                     RequestedHours = 1,
-                     ResourceId = resource1.Id,
-                     StartTime = DateTime.Now,
-                     EndTime = DateTime.Now.AddHours(1),
-                     Status = Enum.Status.Pending
-                 },
+                _reservationSystemManager.CreateReservationItem(
+                    reservation1.Id,
+                    reservation1.Id,
+                    startTime: DateTime.Now,
+                    endTime: DateTime.Now.AddHours(1),
+                    requestedHours: 1
+                    ),
                  autoSave: true
             );
         }

@@ -36,7 +36,7 @@ namespace ReservationSystem.Resources
             Guid managerId,
             byte category,
             int maxReservationHours,
-            Guid? parentId,
+            Guid? parentId = null,
             [CanBeNull] string location = null,
             [CanBeNull] string serial = null,
             [CanBeNull] string image = null,

@@ -5,6 +5,9 @@
     "Welcome": "Welcome",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
     "Resource:ResourceWithSameNameExists": "A Resource with the same name is already exists.",
-    "Resource:ManagersConcurrentResourceLimit": "A manager can have 5 resources at most."
+    "Resource:ManagersConcurrentResourceLimit": "A manager can have 5 resources at most.",
+    "Reservation:ReservationItemsShouldBeGreaterThanZero": "To create a rezervasyon you should at least add one rezervation item!",
+    "Reservation:ReservationItemAvailabilityHours": "Reservations can be done for working days.",
+    "Reservation:ConflictingItemFound": "Conflicting reservation item found."
   }
 }

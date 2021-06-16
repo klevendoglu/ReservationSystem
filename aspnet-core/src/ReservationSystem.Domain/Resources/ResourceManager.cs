@@ -32,6 +32,11 @@ namespace ReservationSystem.Resources
             )
         {
 
+            if(await _resourceRepository.AnyAsync(t => t.Name == name))
+            {
+                throw new BusinessException("Resource:ResourceWithSameNameExists");
+            }
+
             return new Resource(
                 GuidGenerator.Create(),
                 name,
@@ -53,7 +58,7 @@ namespace ReservationSystem.Resources
                 return;
             }
 
-            if (await _resourceRepository.AnyAsync(i => i.Name == name))
+            if (await _resourceRepository.AnyAsync(t => t.Name == name))
             {
                 throw new BusinessException("Resource:ResourceWithSameNameExists");
             }

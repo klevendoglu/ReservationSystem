@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using Volo.Abp.Domain.Entities;
 
 namespace ReservationSystem.Reservations
@@ -21,29 +22,29 @@ namespace ReservationSystem.Reservations
 
         public Enum.Status Status { get; set; }
 
-        //public ReservationItem(
-        //    Guid id,
-        //    Guid reservationId,
-        //    Guid resourceId,
-        //    DateTime startTime,
-        //    int requestedHours,
-        //    DateTime endTime,
-        //    DateTime? returnTime,
-        //    int? overDue,
-        //    Enum.Status status
-        //    ) : base(id)
-        //{
-        //    ReservationId = reservationId;
-        //    ResourceId = resourceId;
-        //    StartTime = startTime;
-        //    RequestedHours = requestedHours;
-        //    EndTime = endTime;
-        //    ReturnTime = returnTime;
-        //    OverDue = overDue;
-        //    Status = status;
-        //}
+        internal ReservationItem(
+            Guid id,
+            Guid reservationId,
+            Guid resourceId,
+            DateTime startTime,
+            int requestedHours,
+            DateTime endTime,
+            Enum.Status status,
+            [CanBeNull] DateTime? returnTime = null,
+            [CanBeNull] int? overDue = null
+            ) : base(id)
+        {
+            ReservationId = reservationId;
+            ResourceId = resourceId;
+            StartTime = startTime;
+            RequestedHours = requestedHours;
+            EndTime = endTime;
+            Status = status;
+            ReturnTime = returnTime;
+            OverDue = overDue;
+        }
 
-        //private ReservationItem() { }
+        private ReservationItem() { }
 
     }
 }
