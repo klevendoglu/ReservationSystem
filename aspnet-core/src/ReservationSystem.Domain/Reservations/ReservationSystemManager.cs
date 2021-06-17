@@ -87,7 +87,7 @@ namespace ReservationSystem.Reservations
 
             if (conflictingItem != null)
             {
-                throw new BusinessException("Reservation:ReservationItemAvailabilityHours");
+                throw new BusinessException("Reservation:ConflictingItemFound");
             }
         }
 

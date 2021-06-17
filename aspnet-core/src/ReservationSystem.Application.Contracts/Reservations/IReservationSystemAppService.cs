@@ -11,8 +11,6 @@ namespace ReservationSystem.Reservations
     {
         Task<ReservationDto> CreateAsync(CreateReservationInputDto input);
 
-        Task<ReservationDto> CreateRecurringReservationAsync(CreateRecurringReservationInput input);
-
         Task UpdateAsync(UpdateReservationInputDto input);
 
         Task ProcessReservationAsync(ProcessReservationInput input);

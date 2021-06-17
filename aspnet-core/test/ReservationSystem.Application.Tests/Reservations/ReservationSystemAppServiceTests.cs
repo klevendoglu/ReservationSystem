@@ -39,8 +39,8 @@ namespace ReservationSystem.Reservations
                         new CreateReservationItemInputDto()
                         {
                             RequestedHours = 1,
-                            StartTime = DateTime.Now,
-                            EndTime = DateTime.Now.AddHours(2),
+                            StartTime = DateTime.Now.AddHours(-10),
+                            EndTime = DateTime.Now.AddHours(-8),
                             Status = Enum.Status.Pending,
                             ResourceId = firstResource.Id
                         }

@@ -36,30 +36,11 @@ namespace ReservationSystem.Reservations
                 input.RequestedItems.Count
             );
 
-            var reservationItems = new List<ReservationItem>();
-            for (int i = 0; i < input.RequestedItems.Count; i++)
-            {
-                var requestedItem = input.RequestedItems.ElementAt(i);
-                var reservationItem = _reservationSystemManager.CreateReservationItem(
-                    reservation.Id,
-                    requestedItem.ResourceId,
-                    requestedItem.StartTime,
-                    requestedItem.EndTime,
-                    requestedItem.RequestedHours
-                    );
-                reservationItems.Add(reservationItem);
-            }
-
-            await _reservationSystemManager.AddReservationItems(reservation, reservationItems);
+            await _reservationSystemManager.AddReservationItems(reservation, InitializeReservationItemList(reservation, input.RequestedItems));
 
             await _reservationRepository.InsertAsync(reservation);
 
             return ObjectMapper.Map<Reservation, ReservationDto>(reservation);
-        }
-
-        public Task<ReservationDto> CreateRecurringReservationAsync(CreateRecurringReservationInput input)
-        {
-            throw new NotImplementedException();
         }
 
         public Task UpdateAsync(UpdateReservationInputDto input)
@@ -82,5 +63,22 @@ namespace ReservationSystem.Reservations
             throw new NotImplementedException();
         }
 
+        private List<ReservationItem> InitializeReservationItemList(Reservation reservation, List<CreateReservationItemInputDto> requestedItems)
+        {
+            var reservationItems = new List<ReservationItem>();
+            for (int i = 0; i < requestedItems.Count; i++)
+            {
+                var requestedItem = requestedItems.ElementAt(i);
+                var reservationItem = _reservationSystemManager.CreateReservationItem(
+                    reservation.Id,
+                    requestedItem.ResourceId,
+                    requestedItem.StartTime,
+                    requestedItem.EndTime,
+                    requestedItem.RequestedHours
+                    );
+                reservationItems.Add(reservationItem);
+            }
+            return reservationItems;
+        }
     }
 }
