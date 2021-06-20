@@ -31,7 +31,5 @@ namespace ReservationSystem.Resources.Dtos.Resource
         public ResourceDto Parent { get; set; }
 
         public int MaxReservationHours { get; set; }
-
-        public bool CanBeUsedForEvents { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 import type { ResourceDto } from '../../../resources/dtos/resource/models';
-import type { Enum+Status } from '../../../enum+status.enum';
+import type { Status } from '../../../status.enum';
 import type { FullAuditedEntityDto } from '@abp/ng.core';
 import type { UserDto } from '../../../users/models';
 
@@ -12,7 +12,7 @@ export interface ReservationItemDto {
   endTime?: string;
   returnTime?: string;
   overDue?: number;
-  status: Enum+Status;
+  status: Status;
   statusText?: string;
   isOverDue: boolean;
   isFinished: boolean;
@@ -25,12 +25,12 @@ export interface CreateReservationItemInputDto {
   startTime: string;
   requestedHours: number;
   endTime?: string;
-  status: Enum+Status;
+  status: Status;
 }
 
 export interface CreateReservationInputDto {
   reserverNotes?: string;
-  status: Enum+Status;
+  status: Status;
   requestedItems: CreateReservationItemInputDto[];
   isReservationApprovalRequired: boolean;
 }
@@ -43,12 +43,12 @@ export interface ProcessReservationInput {
 
 export interface ProcessReservationItemInputDto {
   id?: string;
-  status: Enum+Status;
+  status: Status;
 }
 
 export interface ReservationDto extends FullAuditedEntityDto {
   id?: string;
-  status: Enum+Status;
+  status: Status;
   reserverNotes?: string;
   managerNotes?: string;
   creatorUser: UserDto;
@@ -62,5 +62,5 @@ export interface ReservationDto extends FullAuditedEntityDto {
 export interface UpdateReservationInputDto {
   id?: string;
   managerNotes?: string;
-  status: Enum+Status;
+  status: Status;
 }

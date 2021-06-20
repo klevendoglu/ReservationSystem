@@ -16,6 +16,13 @@ function configureRoutes(routesService: RoutesService) {
         layout: eLayoutType.application,
       },
       {
+        path: '/reservation-system',
+        name: '::Menu:ReservationSystem',
+        iconClass: 'fas fa-book',
+        order: 2,
+        layout: eLayoutType.application,
+      },
+      {
         path: '/resources',
         name: '::Menu:Resources',
         parentName: '::Menu:ReservationSystem',

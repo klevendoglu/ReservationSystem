@@ -14,5 +14,4 @@ export interface ResourceDto extends FullAuditedEntityDto<string> {
   parentId?: string;
   parent: ResourceDto;
   maxReservationHours: number;
-  canBeUsedForEvents: boolean;
 }

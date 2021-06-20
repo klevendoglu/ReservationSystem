@@ -1,7 +1,7 @@
 import type { PagedAndSortedResultRequestDto } from '@abp/ng.core';
-import type { Enum+ResourceCategory } from '../../enum+resource-category.enum';
 import type { ResourceDto } from './resource/models';
 import type { ReservationItemDto } from '../../reservations/dtos/reservation/models';
+import { ResourceCategory } from '@proxy/resource-category.enum';
 
 export interface CreateResourceInputDto {
   name: string;
@@ -20,7 +20,7 @@ export interface GetResourcesInput extends PagedAndSortedResultRequestDto {
   resourceId?: string;
   filter?: string;
   parentId?: string;
-  category?: Enum+ResourceCategory;
+  category?: ResourceCategory;
   onlyChildren: boolean;
   onlyParents: boolean;
 }

@@ -2,6 +2,9 @@
   "culture": "tr",
   "texts": {
     "Menu:Home": "Ana sayfa",
+    "Menu:ReservationSystem": "Reservasyon Sistemi",
+    "Menu:Resources": "Kaynaklar",
+    "Menu:Reservations": "Reservasyonlar",
     "Welcome": "Hoşgeldiniz",
     "LongWelcomeMessage": "Uygulamaya hoşgeldiniz. Bu, ABP framework'ü üzerine bina edilmiş bir başlangıç projesidir. Daha fazla bilgi için abp.io adresini ziyaret edebilirsiniz.",
     "Resource:ResourceWithSameNameExists": "Aynı isimde başka bir kaynak bulunmaktadır.",

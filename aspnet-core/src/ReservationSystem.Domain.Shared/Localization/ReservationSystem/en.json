@@ -2,6 +2,9 @@
   "culture": "en",
   "texts": {
     "Menu:Home": "Home",
+    "Menu:ReservationSystem": "Reservation System",
+    "Menu:Resources": "Resources",
+    "Menu:Reservations": "Reservations",
     "Welcome": "Welcome",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
     "Resource:ResourceWithSameNameExists": "A Resource with the same name is already exists.",
