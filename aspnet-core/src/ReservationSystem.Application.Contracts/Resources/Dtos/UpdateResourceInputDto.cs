@@ -7,8 +7,6 @@ namespace ReservationSystem.Resources.Dtos
 {
     public class UpdateResourceInputDto
     {
-        public Guid Id { get; set; }
-
         [Required]
         [MaxLength(ResourceConsts.MaxNameLength)]
         public string Name { get; set; }

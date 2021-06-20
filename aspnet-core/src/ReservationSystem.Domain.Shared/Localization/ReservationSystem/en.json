@@ -8,6 +8,15 @@
     "Resource:ManagersConcurrentResourceLimit": "A manager can have 5 resources at most.",
     "Reservation:ReservationItemsShouldBeGreaterThanZero": "To create a rezervasyon you should at least add one rezervation item!",
     "Reservation:ReservationItemAvailabilityHours": "Reservations can be done for working days.",
-    "Reservation:ConflictingItemFound": "Conflicting reservation item found."
+    "Reservation:ConflictingItemFound": "Conflicting reservation item found.",
+    "Permission:ReservationSystem": "Reservation System",
+    "Permission:Resources": "Resource Management",
+    "Permission:Resources.Create": "Creating new resource",
+    "Permission:Resources.Edit": "Editing new resource",
+    "Permission:Resources.Delete": "Deleting the resources",
+    "Permission:Reservations": "Reservation Management",
+    "Permission:Reservations.Create": "Creating new reservation",
+    "Permission:Reservations.Edit": "Editing the reservation",
+    "Permission:Reservations.Delete": "Deleting the reservation"
   }
 }

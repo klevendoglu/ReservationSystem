@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Linq;
 
 namespace ReservationSystem.Reservations
 {
@@ -16,17 +17,19 @@ namespace ReservationSystem.Reservations
         private readonly IRepository<Reservation, Guid> _reservationRepository;
         private readonly IRepository<ReservationItem, Guid> _reservationItemRepository;
         private readonly IRepository<AppUser, Guid> _userRepository;
+        
 
         public ReservationSystemAppService(
             ReservationSystemManager reservationSystemManager,
             IRepository<Reservation, Guid> reservationRepository,
             IRepository<ReservationItem, Guid> reservationItemRepository,
-            IRepository<AppUser, Guid> userRepository)
+            IRepository<AppUser, Guid> userRepository
+            )
         {
             _reservationSystemManager = reservationSystemManager;
             _reservationRepository = reservationRepository;
             _reservationItemRepository = reservationItemRepository;
-            _userRepository = userRepository;
+            _userRepository = userRepository;            
         }
 
         public async Task<ReservationDto> CreateAsync(CreateReservationInputDto input)
@@ -48,14 +51,9 @@ namespace ReservationSystem.Reservations
             throw new NotImplementedException();
         }
 
-        public Task ProcessReservationAsync(ProcessReservationInput input)
+        public async Task ProcessReservationAsync(ProcessReservationInput input)
         {
-            throw new NotImplementedException();
-        }
 
-        public Task ReturnReservationAsync(ReturnReservationInputDto input)
-        {
-            throw new NotImplementedException();
         }
 
         public Task DeleteAsync(Guid id)

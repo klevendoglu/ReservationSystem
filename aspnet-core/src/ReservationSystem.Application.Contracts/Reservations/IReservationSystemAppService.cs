@@ -15,8 +15,6 @@ namespace ReservationSystem.Reservations
 
         Task ProcessReservationAsync(ProcessReservationInput input);
 
-        Task ReturnReservationAsync(ReturnReservationInputDto input);
-
         Task DeleteAsync(Guid id);
     }
 }

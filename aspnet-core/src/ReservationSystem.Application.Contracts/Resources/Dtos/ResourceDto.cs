@@ -6,10 +6,8 @@ using Volo.Abp.Application.Dtos;
 
 namespace ReservationSystem.Resources.Dtos.Resource
 {
-    public class ResourceDto : FullAuditedEntityDto
+    public class ResourceDto : FullAuditedEntityDto<Guid>
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
         public string Location { get; set; }

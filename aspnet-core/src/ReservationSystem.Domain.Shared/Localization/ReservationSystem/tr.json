@@ -8,6 +8,15 @@
     "Resource:ManagersConcurrentResourceLimit": "Bir yönetici en fazla 5 kaynağa sahip olabilir.",
     "Reservation:ReservationItemsShouldBeGreaterThanZero": "Rezervasyon oluşturmak için en az bir adet ekipman eklenmelidir!",
     "Reservation:ReservationItemAvailabilityHours": "Rezervasyon hafta içi mesai saatleri içerisinde yapılabilir.",
-    "Reservation:ConflictingItemFound": "Çakışan rezervasyon ekipmanı bulundu."
+    "Reservation:ConflictingItemFound": "Çakışan rezervasyon ekipmanı bulundu.",
+    "Permission:ReservationSystem": "Rezervasyon Sistemi",
+    "Permission:Resources": "Kaynak Yönetimi",
+    "Permission:Resources.Create": "Yeni kaynak oluşturma",
+    "Permission:Resources.Edit": "Kaynak düzenleme",
+    "Permission:Resources.Delete": "Kaynak silme",
+    "Permission:Reservations": "Rezervasyon Yönetimi",
+    "Permission:Reservations.Create": "Yeni rezervasyon oluşturma",
+    "Permission:Reservations.Edit": "Rezervasyon düzenleme",
+    "Permission:Reservations.Delete": "Rezervasyon silme"
   }
 }

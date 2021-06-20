@@ -1,4 +1,6 @@
-﻿using ReservationSystem.Reservations.Dtos.Reservation;
+﻿using Microsoft.AspNetCore.Authorization;
+using ReservationSystem.Permissions;
+using ReservationSystem.Reservations.Dtos.Reservation;
 using ReservationSystem.Resources.Dtos;
 using ReservationSystem.Resources.Dtos.Resource;
 using ReservationSystem.Users;
@@ -13,23 +15,37 @@ using Volo.Abp.Domain.Repositories;
 
 namespace ReservationSystem.Resources
 {
-    public class ResourceAppService : ApplicationService, IResourceAppService
+    [Authorize(ReservationSystemPermissions.Resources.Default)]
+    public class ResourceAppService : CrudAppService<
+            Resource, //The Resource entity
+            ResourceDto, //Used to show resources
+            Guid, //Primary key of the resource entity
+            PagedAndSortedResultRequestDto, //Used for paging/sorting
+            CreateResourceInputDto, //Used for creating entity
+            UpdateResourceInputDto>, IResourceAppService
     {
         private readonly ResourceManager _resourceManager;
         private readonly IRepository<Resource, Guid> _resourceRepository;
         private readonly IRepository<AppUser, Guid> _userRepository;
 
         public ResourceAppService(
-            IRepository<Resource, Guid> resourceRepository,
+            IRepository<Resource, Guid> repository,
             ResourceManager resourceManager,
             IRepository<AppUser, Guid> userRepository)
+            : base(repository)
         {
-            _resourceRepository = resourceRepository;
+            _resourceRepository = repository;
             _resourceManager = resourceManager;
             _userRepository = userRepository;
+
+            GetPolicyName = ReservationSystemPermissions.Resources.Default;
+            GetListPolicyName = ReservationSystemPermissions.Resources.Default;
+            CreatePolicyName = ReservationSystemPermissions.Resources.Create;
+            UpdatePolicyName = ReservationSystemPermissions.Resources.Edit;
+            DeletePolicyName = ReservationSystemPermissions.Resources.Create;
         }
 
-        public async Task<ResourceDto> CreateAsync(CreateResourceInputDto input)
+        public override async Task<ResourceDto> CreateAsync(CreateResourceInputDto input)
         {
             var resource = await _resourceManager.CreateAsync(
                     input.Name,
@@ -47,9 +63,9 @@ namespace ReservationSystem.Resources
             return ObjectMapper.Map<Resource, ResourceDto>(resource);
         }
 
-        public async Task<ResourceDto> UpdateAsync(UpdateResourceInputDto input)
+        public override async Task<ResourceDto> UpdateAsync(Guid id, UpdateResourceInputDto input)
         {
-            var resource = await _resourceRepository.GetAsync(input.Id);
+            var resource = await _resourceRepository.GetAsync(id);
 
             await _resourceManager.ChangeNameAsync(resource, input.Name);
 
@@ -74,21 +90,22 @@ namespace ReservationSystem.Resources
             return ObjectMapper.Map<Resource, ResourceDto>(resource);
         }
 
-        public async Task<ResourceDto> GetResourceAsync(Guid id)
+        public override async Task<ResourceDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<Resource, ResourceDto>(await _resourceRepository.GetAsync(id));
         }
 
-        public async Task<PagedResultDto<ResourceDto>> GetListAsync(GetResourcesInput input)
+        public override async Task<PagedResultDto<ResourceDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
+            //Set a default sorting, if not provided
+            if (input.Sorting.IsNullOrWhiteSpace())
+            {
+                input.Sorting = nameof(Resource.Name);
+            }
+
             var resourceDtos = ObjectMapper.Map<List<Resource>, List<ResourceDto>>(await _resourceRepository.GetListAsync());
             var totalCount = await _resourceRepository.GetCountAsync();
             return new PagedResultDto<ResourceDto>(totalCount, resourceDtos);
-        }
-
-        public Task DeleteResource(Guid id)
-        {
-            throw new NotImplementedException();
         }
 
         public void CheckReservationHours(CreateReservationItemInputDto input)

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
+using Volo.Abp.Linq;
 
 namespace ReservationSystem.Reservations
 {
@@ -15,13 +16,17 @@ namespace ReservationSystem.Reservations
         private readonly IRepository<Reservation, Guid> _reservationRepository;
         private readonly IRepository<ReservationItem, Guid> _reservationItemRepository;
 
+        private readonly IAsyncQueryableExecuter _asyncExecuter;
+
         public ReservationSystemManager(
             IRepository<Reservation, Guid> reservationRepository,
-            IRepository<ReservationItem, Guid> reservationItemRepository
+            IRepository<ReservationItem, Guid> reservationItemRepository,
+            IAsyncQueryableExecuter asyncExecuter
             )
         {
             _reservationRepository = reservationRepository;
             _reservationItemRepository = reservationItemRepository;
+            _asyncExecuter = asyncExecuter;
         }
 
         public Reservation Create(
@@ -78,7 +83,7 @@ namespace ReservationSystem.Reservations
         private async Task CheckConflictingReservationItem(ReservationItem item)
         {
             var reservationItemQuaryable = await _reservationItemRepository.GetQueryableAsync();
-            var itemsInUse = await AsyncExecuter.ToListAsync(reservationItemQuaryable.Where(new ItemsInUseSpecification()));
+            var itemsInUse = await _asyncExecuter.ToListAsync(reservationItemQuaryable.Where(new ItemsInUseSpecification()));
 
             var conflictingItem = itemsInUse.FirstOrDefault(x => x.ResourceId == item.ResourceId &&
                         ((item.StartTime >= x.StartTime && item.StartTime < x.EndTime) ||

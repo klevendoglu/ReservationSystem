@@ -14,14 +14,13 @@ namespace ReservationSystem.Resources
     public interface IResourceAppService : IApplicationService
     {
         Task<ResourceDto> CreateAsync(CreateResourceInputDto input);
-        Task<ResourceDto> UpdateAsync(UpdateResourceInputDto input);
-        Task DeleteResource(Guid id);
-        Task<ResourceDto> GetResourceAsync(Guid id);
+        Task<ResourceDto> UpdateAsync(Guid id, UpdateResourceInputDto input);
+        Task<ResourceDto> GetAsync(Guid id);
         Task<ResourceDto> CheckResourceAvailability(CreateReservationItemInputDto input);
         void CheckReservationHours(CreateReservationItemInputDto input);
         Task<ResourceScheduleOutputDto> GetResourceSchedule(Guid id);
 
-        Task<PagedResultDto<ResourceDto>> GetListAsync(GetResourcesInput input);
+        Task<PagedResultDto<ResourceDto>> GetListAsync(PagedAndSortedResultRequestDto input);
         Task<PagedResultDto<ResourceDto>> GetResourcesStudio(GetResourcesInput input);
         Task<PagedResultDto<ResourceDto>> GetResourcesMeetingRoom(GetResourcesInput input);
         Task<PagedResultDto<ResourceDto>> GetResourcesLibrary(GetResourcesInput input);

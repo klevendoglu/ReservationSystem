@@ -15,6 +15,20 @@ function configureRoutes(routesService: RoutesService) {
         order: 1,
         layout: eLayoutType.application,
       },
+      {
+        path: '/resources',
+        name: '::Menu:Resources',
+        parentName: '::Menu:ReservationSystem',
+        layout: eLayoutType.application,
+        requiredPolicy: 'ReservationSystem.Resources',
+      },
+      {
+        path: '/reservations',
+        name: '::Menu:Reservations',
+        parentName: '::Menu:ReservationSystem',
+        layout: eLayoutType.application,
+        requiredPolicy: 'ReservationSystem.Reservations',
+      }
     ]);
   };
 }
