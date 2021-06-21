@@ -45,10 +45,15 @@
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column [name]="'::Name' | abpLocalization" prop="name"></ngx-datatable-column>
-      <ngx-datatable-column [name]="'::BirthDate' | abpLocalization">
+      <ngx-datatable-column [name]="'::CreationTime' | abpLocalization">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.birthDate | date }}
+          {{ row.creationTime | date }}
         </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column
+        [name]="'::MaxReservationHours' | abpLocalization"
+        prop="maxReservationHours"
+      >
       </ngx-datatable-column>
     </ngx-datatable>
   </div>
@@ -63,7 +68,65 @@
     <form [formGroup]="form" (ngSubmit)="save()">
       <div class="form-group">
         <label for="resource-name">Name</label><span> * </span>
-        <input type="text" id="resource-name" class="form-control" formControlName="name" autofocus />
+        <input
+          type="text"
+          id="resource-name"
+          class="form-control"
+          formControlName="name"
+          autofocus
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="resource-description">Açıklama</label>
+        <input
+          type="text"
+          id="resource-description"
+          class="form-control"
+          formControlName="description"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="resource-maxreservationhours">Maksimum Rezervasyon Saati</label><span> * </span>
+        <input
+          type="number"
+          id="resource-maxreservationhours"
+          class="form-control"
+          formControlName="maxReservationHours"
+        />
+      </div>
+      <div class="form-group">
+        <label for="category">Kategori</label><span> * </span>
+        <select class="form-control" id="category" formControlName="category">
+          <option [ngValue]="null">Kategori seç</option>
+          <option [ngValue]="1">{{ '::StudioOrStudioEquipment' | abpLocalization }}</option>
+          <option [ngValue]="2">{{ '::MeetingRoom' | abpLocalization }}</option>
+          <option [ngValue]="3">{{ '::LibraryRoom' | abpLocalization }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="manager-id">Yönetici</label><span> * </span>
+        <select class="form-control" id="manager-id" formControlName="managerId">
+          <option [ngValue]="null">Yönetici seçiniz</option>
+          <option [ngValue]="manager.id" *ngFor="let manager of managers$ | async">
+            {{ manager.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="parent-id">Parent Kaynak</label>
+        <select class="form-control" id="parent-id" formControlName="parentId">
+          <option [ngValue]="null">Parent Kaynak seç</option>
+          <option
+            [ngValue]="parentResource.id"
+            *ngFor="let parentResource of parentResources$ | async"
+          >
+            {{ parentResource.name }}
+          </option>
+        </select>
       </div>
 
       <!-- <div class="form-group">

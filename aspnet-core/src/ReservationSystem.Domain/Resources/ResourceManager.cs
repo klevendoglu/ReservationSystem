@@ -1,4 +1,5 @@
-﻿using ReservationSystem.Users;
+﻿using JetBrains.Annotations;
+using ReservationSystem.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,19 +21,19 @@ namespace ReservationSystem.Resources
         }
 
         public async Task<Resource> CreateAsync(
-            string name,
-            Guid managerId,
+            [NotNull] string name,
+            [NotNull] Guid managerId,
             byte category,
-            int maxReservationHours,
-            Guid? parentId = null,
-            string location = null,
-            string serial = null,
-            string image = null,
-            string description = null
+            [NotNull] int maxReservationHours,
+            [CanBeNull] Guid? parentId = null,
+            [CanBeNull] string location = null,
+            [CanBeNull] string serial = null,
+            [CanBeNull] string image = null,
+            [CanBeNull] string description = null
             )
         {
 
-            if(await _resourceRepository.AnyAsync(t => t.Name == name))
+            if (await _resourceRepository.AnyAsync(t => t.Name == name))
             {
                 throw new BusinessException("Resource:ResourceWithSameNameExists");
             }

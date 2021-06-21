@@ -21,8 +21,8 @@ export interface GetResourcesInput extends PagedAndSortedResultRequestDto {
   filter?: string;
   parentId?: string;
   category?: ResourceCategory;
-  onlyChildren: boolean;
-  onlyParents: boolean;
+  onlyChildren?: boolean;
+  onlyParents?: boolean;
 }
 
 export interface ResourceScheduleOutputDto {

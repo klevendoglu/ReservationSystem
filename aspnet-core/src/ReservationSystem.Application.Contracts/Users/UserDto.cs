@@ -6,7 +6,7 @@ using Volo.Abp.Auditing;
 
 namespace ReservationSystem.Users
 {
-    public class UserDto : EntityDto<Guid>, IHasCreationTime
+    public class UserDto : EntityDto<Guid>
     {
         public string Name { get; set; }
 
@@ -14,18 +14,14 @@ namespace ReservationSystem.Users
 
         public string UserName { get; set; }
 
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
 
-        public Guid? ProfilePictureId { get; set; }
-
-        public bool IsEmailConfirmed { get; set; }
+        public bool EmailConfirmed { get; set; }
 
         public List<UserRoleDto> Roles { get; set; }
 
-        public DateTime? LastLoginTime { get; set; }
+        public string PhoneNumber { get; set; }
 
-        public bool IsActive { get; set; }
-
-        public DateTime CreationTime { get; set; }
+        public bool PhoneNumberConfirmed { get; set; }
     }
 }

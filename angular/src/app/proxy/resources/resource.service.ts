@@ -50,7 +50,7 @@ export class ResourceService {
     },
     { apiName: this.apiName });
 
-  getList = (input: PagedAndSortedResultRequestDto) =>
+  getList = (input: GetResourcesInput) =>
     this.restService.request<any, PagedResultDto<ResourceDto>>({
       method: 'GET',
       url: '/api/app/resource',

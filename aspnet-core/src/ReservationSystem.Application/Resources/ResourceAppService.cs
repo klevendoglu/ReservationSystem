@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Linq;
 
 namespace ReservationSystem.Resources
 {
@@ -20,7 +21,7 @@ namespace ReservationSystem.Resources
             Resource, //The Resource entity
             ResourceDto, //Used to show resources
             Guid, //Primary key of the resource entity
-            PagedAndSortedResultRequestDto, //Used for paging/sorting
+            GetResourcesInput, //Used for paging/sorting
             CreateResourceInputDto, //Used for creating entity
             UpdateResourceInputDto>, IResourceAppService
     {
@@ -28,15 +29,21 @@ namespace ReservationSystem.Resources
         private readonly IRepository<Resource, Guid> _resourceRepository;
         private readonly IRepository<AppUser, Guid> _userRepository;
 
+        private readonly IAsyncQueryableExecuter _asyncExecuter;
+
         public ResourceAppService(
             IRepository<Resource, Guid> repository,
             ResourceManager resourceManager,
-            IRepository<AppUser, Guid> userRepository)
+            IRepository<AppUser, Guid> userRepository,
+            IAsyncQueryableExecuter asyncExecuter
+            )
             : base(repository)
         {
             _resourceRepository = repository;
             _resourceManager = resourceManager;
             _userRepository = userRepository;
+
+            _asyncExecuter = asyncExecuter;
 
             GetPolicyName = ReservationSystemPermissions.Resources.Default;
             GetListPolicyName = ReservationSystemPermissions.Resources.Default;
@@ -95,7 +102,7 @@ namespace ReservationSystem.Resources
             return ObjectMapper.Map<Resource, ResourceDto>(await _resourceRepository.GetAsync(id));
         }
 
-        public override async Task<PagedResultDto<ResourceDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        public override async Task<PagedResultDto<ResourceDto>> GetListAsync(GetResourcesInput input)
         {
             //Set a default sorting, if not provided
             if (input.Sorting.IsNullOrWhiteSpace())
@@ -103,7 +110,16 @@ namespace ReservationSystem.Resources
                 input.Sorting = nameof(Resource.Name);
             }
 
-            var resourceDtos = ObjectMapper.Map<List<Resource>, List<ResourceDto>>(await _resourceRepository.GetListAsync());
+            var resources = await _asyncExecuter.ToListAsync(_resourceRepository
+                    .WhereIf(input.ResourceId.HasValue, t => t.Id == input.ResourceId.Value)
+                    .WhereIf(input.ParentId.HasValue, t => t.ParentId == input.ParentId)
+                    .WhereIf(input.Category.HasValue, t => t.Category == (int)input.Category)
+                    .WhereIf(input.OnlyChildren, t => t.ParentId != null)
+                    .WhereIf(input.OnlyParents, t => t.ParentId == null)
+                    .WhereIf(!string.IsNullOrEmpty(input.Filter), t => t.Name.Contains(input.Filter) || t.Description.Contains(input.Filter) || t.Serial.Contains(input.Filter))
+                );
+
+            var resourceDtos = ObjectMapper.Map<List<Resource>, List<ResourceDto>>(resources);
             var totalCount = await _resourceRepository.GetCountAsync();
             return new PagedResultDto<ResourceDto>(totalCount, resourceDtos);
         }
@@ -118,9 +134,13 @@ namespace ReservationSystem.Resources
             throw new NotImplementedException();
         }
 
-        public Task<ListResultDto<UserDto>> GetResourceManagers()
+        public async Task<ListResultDto<UserDto>> GetResourceManagers()
         {
-            throw new NotImplementedException();
+            var users = await _userRepository.GetListAsync();
+
+            return new ListResultDto<UserDto>(
+                ObjectMapper.Map<List<AppUser>, List<UserDto>>(users)
+            );
         }
 
         public Task<ResourceScheduleOutputDto> GetResourceSchedule(Guid id)

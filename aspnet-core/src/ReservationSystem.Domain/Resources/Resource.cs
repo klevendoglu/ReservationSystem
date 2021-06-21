@@ -33,9 +33,9 @@ namespace ReservationSystem.Resources
         internal Resource(
             Guid id,
             [NotNull] string name,
-            Guid managerId,
+            [NotNull] Guid managerId,
             byte category,
-            int maxReservationHours,
+            [NotNull] int maxReservationHours,
             Guid? parentId = null,
             [CanBeNull] string location = null,
             [CanBeNull] string serial = null,

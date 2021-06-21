@@ -6,6 +6,10 @@ import { ResourceService } from '@proxy/resources';
 import { ResourceDto } from '@proxy/resources/dtos/resource';
 import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { DateAdapter } from '@abp/ng.theme.shared/extensions';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { UserDto } from '@proxy/users';
+import { GetResourcesInput } from '@proxy/resources/dtos';
 
 @Component({
   selector: 'app-resource',
@@ -13,13 +17,15 @@ import { DateAdapter } from '@abp/ng.theme.shared/extensions';
   styleUrls: ['./resource.component.scss'],
   providers: [ListService, { provide: NgbDateAdapter, useClass: DateAdapter }],
 })
-
 export class ResourceComponent implements OnInit {
   resource = { items: [], totalCount: 0 } as PagedResultDto<ResourceDto>;
 
   isModalOpen = false;
 
   form: FormGroup;
+
+  parentResources$: Observable<ResourceDto[]>;
+  managers$: Observable<UserDto[]>;
 
   selectedResource = {} as ResourceDto;
 
@@ -28,7 +34,11 @@ export class ResourceComponent implements OnInit {
     private _resourceService: ResourceService,
     private fb: FormBuilder,
     private confirmation: ConfirmationService
-  ) {}
+  ) {
+    this.managers$ = _resourceService.getResourceManagers().pipe(map(r => r.items));
+    const getResourcesInput: GetResourcesInput = { onlyChildren: true, maxResultCount: 999 };
+    this.parentResources$ = _resourceService.getList(getResourcesInput).pipe(map(r => r.items));
+  }
 
   ngOnInit(): void {
     const resourceStreamCreator = query => this._resourceService.getList(query);

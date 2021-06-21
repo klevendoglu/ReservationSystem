@@ -4,6 +4,7 @@ using ReservationSystem.Reservations.Dtos.Reservation;
 using ReservationSystem.Resources;
 using ReservationSystem.Resources.Dtos;
 using ReservationSystem.Resources.Dtos.Resource;
+using ReservationSystem.Users;
 
 namespace ReservationSystem
 {
@@ -19,6 +20,7 @@ namespace ReservationSystem
             CreateMap<Resource, ResourceDto>();
             CreateMap<CreateResourceInputDto, Resource>();
             CreateMap<UpdateResourceInputDto, Resource>();
+            CreateMap<AppUser, UserDto>();
         }
     }
 }

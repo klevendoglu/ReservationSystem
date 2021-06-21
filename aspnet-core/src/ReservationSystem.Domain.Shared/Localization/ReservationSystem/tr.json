@@ -20,6 +20,12 @@
     "Permission:Reservations": "Rezervasyon Yönetimi",
     "Permission:Reservations.Create": "Yeni rezervasyon oluşturma",
     "Permission:Reservations.Edit": "Rezervasyon düzenleme",
-    "Permission:Reservations.Delete": "Rezervasyon silme"
+    "Permission:Reservations.Delete": "Rezervasyon silme",
+    "Name": "Kaynak Adı",
+    "CreationTime": "Oluşturulma Tarihi",
+    "MaxReservationHours": "En Çok Rezervasyon Süresi",
+    "StudioOrStudioEquipment": "Stüdyo veya stüdyo malzemesi",
+    "MeetingRoom": "Toplanti odası",
+    "LibraryRoom": "Kütüphane odası"
   }
 }
