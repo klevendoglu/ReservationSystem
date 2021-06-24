@@ -36,8 +36,9 @@ export class ResourceComponent implements OnInit {
     private confirmation: ConfirmationService
   ) {
     this.managers$ = _resourceService.getResourceManagers().pipe(map(r => r.items));
-    const getResourcesInput: GetResourcesInput = { onlyChildren: true, maxResultCount: 999 };
-    this.parentResources$ = _resourceService.getList(getResourcesInput).pipe(map(r => r.items));
+    this.parentResources$ = _resourceService
+      .getList({ onlyParents: true, maxResultCount: 999 })
+      .pipe(map(r => r.items));
   }
 
   ngOnInit(): void {
