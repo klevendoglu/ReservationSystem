@@ -9,7 +9,6 @@ import { DateAdapter } from '@abp/ng.theme.shared/extensions';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserDto } from '@proxy/users';
-import { GetResourcesInput } from '@proxy/resources/dtos';
 
 @Component({
   selector: 'app-resource',

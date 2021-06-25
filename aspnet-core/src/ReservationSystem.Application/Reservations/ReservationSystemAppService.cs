@@ -2,9 +2,11 @@
 using ReservationSystem.Users;
 using System;
 using System.Collections.Generic;
+using System.Linq.Dynamic.Core;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Linq;
@@ -17,19 +19,23 @@ namespace ReservationSystem.Reservations
         private readonly IRepository<Reservation, Guid> _reservationRepository;
         private readonly IRepository<ReservationItem, Guid> _reservationItemRepository;
         private readonly IRepository<AppUser, Guid> _userRepository;
-        
+
+        private readonly IAsyncQueryableExecuter _asyncExecuter;
 
         public ReservationSystemAppService(
             ReservationSystemManager reservationSystemManager,
             IRepository<Reservation, Guid> reservationRepository,
             IRepository<ReservationItem, Guid> reservationItemRepository,
-            IRepository<AppUser, Guid> userRepository
+            IRepository<AppUser, Guid> userRepository,
+            IAsyncQueryableExecuter asyncExecuter
             )
         {
             _reservationSystemManager = reservationSystemManager;
             _reservationRepository = reservationRepository;
             _reservationItemRepository = reservationItemRepository;
-            _userRepository = userRepository;            
+            _userRepository = userRepository;
+
+            _asyncExecuter = asyncExecuter;
         }
 
         public async Task<ReservationDto> CreateAsync(CreateReservationInputDto input)
@@ -46,9 +52,26 @@ namespace ReservationSystem.Reservations
             return ObjectMapper.Map<Reservation, ReservationDto>(reservation);
         }
 
-        public Task UpdateAsync(UpdateReservationInputDto input)
+        public async Task<PagedResultDto<ReservationDto>> GetListAsync(GetReservationsInput input)
         {
-            throw new NotImplementedException();
+            //Set a default sorting, if not provided
+            if (input.Sorting.IsNullOrWhiteSpace())
+            {
+                input.Sorting = nameof(Reservation.Id);
+            }
+
+            var queryable = await _reservationRepository.GetQueryableAsync();
+
+            var reservations = await _asyncExecuter.ToListAsync(
+                queryable
+                    .OrderBy(input.Sorting)
+                    .Skip(input.SkipCount)
+                    .Take(input.MaxResultCount)
+            );
+
+            var resourceDtos = ObjectMapper.Map<List<Reservation>, List<ReservationDto>>(reservations);
+            var totalCount = await _reservationRepository.GetCountAsync();
+            return new PagedResultDto<ReservationDto>(totalCount, resourceDtos);
         }
 
         public async Task ProcessReservationAsync(ProcessReservationInput input)

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace ReservationSystem.Reservations
@@ -11,7 +12,7 @@ namespace ReservationSystem.Reservations
     {
         Task<ReservationDto> CreateAsync(CreateReservationInputDto input);
 
-        Task UpdateAsync(UpdateReservationInputDto input);
+        Task<PagedResultDto<ReservationDto>> GetListAsync(GetReservationsInput input);
 
         Task ProcessReservationAsync(ProcessReservationInput input);
 
