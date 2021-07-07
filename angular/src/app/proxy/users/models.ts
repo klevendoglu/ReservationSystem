@@ -4,13 +4,11 @@ export interface UserDto extends EntityDto<string> {
   name?: string;
   surname?: string;
   userName?: string;
-  emailAddress?: string;
-  profilePictureId?: string;
-  isEmailConfirmed: boolean;
+  email?: string;
+  emailConfirmed: boolean;
   roles: UserRoleDto[];
-  lastLoginTime?: string;
-  isActive: boolean;
-  creationTime?: string;
+  phoneNumber?: string;
+  phoneNumberConfirmed: boolean;
 }
 
 export interface UserRoleDto extends EntityDto<string> {

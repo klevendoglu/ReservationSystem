@@ -120,7 +120,7 @@ namespace ReservationSystem.Resources
                 );
 
             var resourceDtos = ObjectMapper.Map<List<Resource>, List<ResourceDto>>(resources);
-            var totalCount = await _resourceRepository.GetCountAsync();
+            var totalCount = resources.Count;
             return new PagedResultDto<ResourceDto>(totalCount, resourceDtos);
         }
 

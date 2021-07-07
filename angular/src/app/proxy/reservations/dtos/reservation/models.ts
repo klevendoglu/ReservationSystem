@@ -1,6 +1,7 @@
 import type { ResourceDto } from '../../../resources/dtos/resource/models';
 import type { Status } from '../../../status.enum';
-import type { FullAuditedEntityDto } from '@abp/ng.core';
+import type { FullAuditedEntityDto, PagedAndSortedResultRequestDto } from '@abp/ng.core';
+import type { ResourceCategory } from '../../../resource-category.enum';
 import type { UserDto } from '../../../users/models';
 
 export interface ReservationItemDto {
@@ -35,6 +36,19 @@ export interface CreateReservationInputDto {
   isReservationApprovalRequired: boolean;
 }
 
+export interface GetReservationsInput extends PagedAndSortedResultRequestDto {
+  reservationId?: string;
+  status?: Status;
+  managerId?: string;
+  creatorUserId?: string;
+  resourceId?: string;
+  isOverDue: boolean;
+  category?: ResourceCategory;
+  filter?: string;
+  hasUnreturnedResources?: boolean;
+  hasOverdueFee: boolean;
+}
+
 export interface ProcessReservationInput {
   reservationId?: string;
   managerNotes?: string;
@@ -57,10 +71,4 @@ export interface ReservationDto extends FullAuditedEntityDto {
   isProcessed: boolean;
   isFinished: boolean;
   isPending: boolean;
-}
-
-export interface UpdateReservationInputDto {
-  id?: string;
-  managerNotes?: string;
-  status: Status;
 }

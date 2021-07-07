@@ -8,7 +8,7 @@ import { ReservationSystemService } from '@proxy/reservations';
 import { ReservationDto } from '@proxy/reservations/dtos/reservation';
 import { ResourceService } from '@proxy/resources';
 import { ResourceDto } from '@proxy/resources/dtos/resource';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -26,6 +26,7 @@ export class ReservationComponent implements OnInit {
 
   parentResources$: Observable<ResourceDto[]>;
   childResources$: Observable<ResourceDto[]>;
+  requestedItems$: BehaviorSubject<ResourceDto[]> = new BehaviorSubject([]);
 
   //selectedReservation = {} as ReservationDto;
 
@@ -42,11 +43,11 @@ export class ReservationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //const resourceStreamCreator = query => this._reservationSystemService.getList(query);
+    const resourceStreamCreator = query => this._reservationSystemService.getList(query);
 
-    //this.list.hookToQuery(resourceStreamCreator).subscribe(response => {
-      //this.reservation = response;
-    //});
+    this.list.hookToQuery(resourceStreamCreator).subscribe(response => {
+      this.reservation = response;
+    });
   }
 
   createReservation() {
@@ -77,6 +78,8 @@ export class ReservationComponent implements OnInit {
       this.list.get();
     });
   }
+
+  showResourceSchedule(id: string) {}
 
   delete(id: string) {
     this.confirmation.warn('::AreYouSureToDelete', '::AreYouSure').subscribe(status => {

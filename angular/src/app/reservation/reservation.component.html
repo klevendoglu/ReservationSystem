@@ -109,16 +109,40 @@
           formControlName="parentResourceId"
           (change)="onParentResourceChange(parentResource.value)"
         >
-          <option [ngValue]="null">Parent Kaynak seç</option>
+          <option [value]="null">Parent Kaynak seç</option>
           <option
-            [ngValue]="parentResource.id"
+            [value]="parentResource.id"
             *ngFor="let parentResource of parentResources$ | async"
           >
             {{ parentResource.name }}
           </option>
         </select>
-
       </div>
+
+      <ng-container *ngIf="childResources$ | async as childResources">
+        <div class="form-group" *ngFor="let resource of childResources">
+          <div class="col-md-4">
+            <a href="#" (click)="showResourceSchedule(resource.id)" class="text-secondary">
+              <i class="fa fa-clock-o"></i
+            ></a>
+            {{ resource.name }}
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>{{ '::StartTime' | abpLocalization }}</label
+              ><span> * </span>
+              <input
+                #datepicker="ngbDatepicker"
+                class="form-control"
+                name="datepicker"
+                formControlName="birthDate"
+                ngbDatepicker
+                (click)="datepicker.toggle()"
+              />
+            </div>
+          </div>
+        </div>
+      </ng-container>
 
       <!-- <div class="form-group">
         <label>Birth date</label><span> * </span>

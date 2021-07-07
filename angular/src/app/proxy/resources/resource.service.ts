@@ -1,7 +1,7 @@
 import type { CreateResourceInputDto, GetResourcesInput, ResourceScheduleOutputDto, UpdateResourceInputDto } from './dtos/models';
 import type { ResourceDto } from './dtos/resource/models';
 import { RestService } from '@abp/ng.core';
-import type { ListResultDto, PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
+import type { ListResultDto, PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import type { CreateReservationItemInputDto } from '../reservations/dtos/reservation/models';
 import type { UserDto } from '../users/models';
@@ -54,7 +54,7 @@ export class ResourceService {
     this.restService.request<any, PagedResultDto<ResourceDto>>({
       method: 'GET',
       url: '/api/app/resource',
-      params: { skipCount: input.skipCount, maxResultCount: input.maxResultCount, sorting: input.sorting },
+      params: { managerId: input.managerId, resourceId: input.resourceId, filter: input.filter, parentId: input.parentId, category: input.category, onlyChildren: input.onlyChildren, onlyParents: input.onlyParents, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName });
 
