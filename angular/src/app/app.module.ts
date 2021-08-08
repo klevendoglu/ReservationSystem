@@ -15,6 +15,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APP_ROUTE_PROVIDER } from './route.provider';
 
+import { SUPPRESS_UNSAVED_CHANGES_WARNING } from '@abp/ng.theme.shared';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -33,7 +35,7 @@ import { APP_ROUTE_PROVIDER } from './route.provider';
     ThemeBasicModule.forRoot(),
   ],
   declarations: [AppComponent],
-  providers: [APP_ROUTE_PROVIDER],
+  providers: [APP_ROUTE_PROVIDER, { provide: SUPPRESS_UNSAVED_CHANGES_WARNING, useValue: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

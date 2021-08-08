@@ -23,17 +23,14 @@ export interface ReservationItemDto {
 export interface CreateReservationItemInputDto {
   reservationId?: string;
   resourceId?: string;
-  startTime: string;
+  name: string;
+  startTime: Date;
   requestedHours: number;
-  endTime?: string;
-  status: Status;
 }
 
 export interface CreateReservationInputDto {
   reserverNotes?: string;
-  status: Status;
   requestedItems: CreateReservationItemInputDto[];
-  isReservationApprovalRequired: boolean;
 }
 
 export interface GetReservationsInput extends PagedAndSortedResultRequestDto {

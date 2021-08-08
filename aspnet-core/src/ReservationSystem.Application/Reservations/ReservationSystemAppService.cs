@@ -63,20 +63,15 @@ namespace ReservationSystem.Reservations
             var queryable = await _reservationRepository.GetQueryableAsync();
 
             var reservations = await _asyncExecuter.ToListAsync(
-                queryable
+                queryable                    
                     .OrderBy(input.Sorting)
                     .Skip(input.SkipCount)
                     .Take(input.MaxResultCount)
             );
 
-            var resourceDtos = ObjectMapper.Map<List<Reservation>, List<ReservationDto>>(reservations);
+            var reservationDtos = ObjectMapper.Map<List<Reservation>, List<ReservationDto>>(reservations);
             var totalCount = await _reservationRepository.GetCountAsync();
-            return new PagedResultDto<ReservationDto>(totalCount, resourceDtos);
-        }
-
-        public async Task ProcessReservationAsync(ProcessReservationInput input)
-        {
-
+            return new PagedResultDto<ReservationDto>(totalCount, reservationDtos);
         }
 
         public Task DeleteAsync(Guid id)
@@ -94,7 +89,6 @@ namespace ReservationSystem.Reservations
                     reservation.Id,
                     requestedItem.ResourceId,
                     requestedItem.StartTime,
-                    requestedItem.EndTime,
                     requestedItem.RequestedHours
                     );
                 reservationItems.Add(reservationItem);

@@ -1,0 +1,73 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ '::NewReservation' | abpLocalization }}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="form-group">
+      <label for="parent-id">Parent Resources</label>
+      <select
+        class="form-control"
+        id="parentResource"
+        name="parentResource"
+        #parentResource
+        formControlName="parentResourceId"
+        (change)="onParentResourceChange(parentResource.value)"
+      >
+        <option [value]="null">Choose Parent Resource</option>
+        <option [value]="parentResource.id" *ngFor="let parentResource of parentResources$ | async">
+          {{ parentResource.name }}
+        </option>
+      </select>
+    </div>
+
+    <ng-container *ngIf="childResources$ | async as childResources">
+      <div class="form-group" *ngFor="let resource of childResources">
+        <div class="row">
+          <div class="col col-md-6">
+            <h5 class="card-title">{{ '::Child Resources' | abpLocalization }}</h5>
+            <span>{{ resource.name }}</span> &nbsp;
+            <button class="btn btn-primary" type="button" (click)="handleRequestedItem(resource)">
+              <i class="fa fa-plus mr-1"></i>
+              <span>{{ '::Add' | abpLocalization }}</span>
+            </button>
+          </div>
+          <ng-container *ngIf="requestedItems$ | async as requestedItems">
+            <div class="col col-md-6">
+              <h5 class="card-title">{{ '::Requested Items' | abpLocalization }}</h5>
+              <p *ngFor="let requestedItem of requestedItems">
+                <strong>{{ requestedItem.name }}</strong
+                ><br />
+                <small>
+                  from: {{ requestedItem.startTime | date: 'yyyy-MM-dd' }} for:
+                  {{ requestedItem.requestedHours }} hrs
+                  <button
+                    class="btn btn-primary"
+                    type="button"
+                    (click)="removeRequestedItem(requestedItem.resourceId)"
+                  >
+                    <i class="fa fa-trash mr-1"></i>
+                  </button>
+                </small>
+              </p>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
+    {{ '::Close' | abpLocalization }}
+  </button>
+
+  <button class="btn btn-primary" (click)="save()" [disabled]="form.invalid">
+    <i class="fa fa-check mr-1"></i>
+    {{ '::Save' | abpLocalization }}
+  </button>
+</div>

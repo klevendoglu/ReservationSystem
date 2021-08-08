@@ -124,16 +124,6 @@ namespace ReservationSystem.Resources
             return new PagedResultDto<ResourceDto>(totalCount, resourceDtos);
         }
 
-        public void CheckReservationHours(CreateReservationItemInputDto input)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ResourceDto> CheckResourceAvailability(CreateReservationItemInputDto input)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<ListResultDto<UserDto>> GetResourceManagers()
         {
             var users = await _userRepository.GetListAsync();
@@ -143,23 +133,5 @@ namespace ReservationSystem.Resources
             );
         }
 
-        public Task<ResourceScheduleOutputDto> GetResourceSchedule(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PagedResultDto<ResourceDto>> GetResourcesLibrary(GetResourcesInput input)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PagedResultDto<ResourceDto>> GetResourcesMeetingRoom(GetResourcesInput input)
-        {
-            throw new NotImplementedException();
-        }
-        public Task<PagedResultDto<ResourceDto>> GetResourcesStudio(GetResourcesInput input)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

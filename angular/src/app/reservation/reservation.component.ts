@@ -2,14 +2,11 @@ import { ListService, PagedResultDto } from '@abp/ng.core';
 import { Confirmation, ConfirmationService } from '@abp/ng.theme.shared';
 import { DateAdapter } from '@abp/ng.theme.shared/extensions';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReservationSystemService } from '@proxy/reservations';
 import { ReservationDto } from '@proxy/reservations/dtos/reservation';
-import { ResourceService } from '@proxy/resources';
-import { ResourceDto } from '@proxy/resources/dtos/resource';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { CreateReservationModalComponent } from './modal/create-reservation-modal.component';
 
 @Component({
   selector: 'app-reservation',
@@ -20,66 +17,25 @@ import { map } from 'rxjs/operators';
 export class ReservationComponent implements OnInit {
   reservation = { items: [], totalCount: 0 } as PagedResultDto<ReservationDto>;
 
-  isModalOpen = false;
-
-  form: FormGroup;
-
-  parentResources$: Observable<ResourceDto[]>;
-  childResources$: Observable<ResourceDto[]>;
-  requestedItems$: BehaviorSubject<ResourceDto[]> = new BehaviorSubject([]);
-
-  //selectedReservation = {} as ReservationDto;
-
   constructor(
     public readonly list: ListService,
-    private _resourceService: ResourceService,
     private _reservationSystemService: ReservationSystemService,
-    private fb: FormBuilder,
+    private _modalService: NgbModal,
     private confirmation: ConfirmationService
-  ) {
-    this.parentResources$ = _resourceService
-      .getList({ onlyParents: true, maxResultCount: 999 })
-      .pipe(map(r => r.items));
-  }
+  ) {}
 
   ngOnInit(): void {
     const resourceStreamCreator = query => this._reservationSystemService.getList(query);
 
     this.list.hookToQuery(resourceStreamCreator).subscribe(response => {
+      debugger
       this.reservation = response;
     });
   }
 
   createReservation() {
-    this.buildForm();
-    this.isModalOpen = true;
+    this.openCreateReservationModal();
   }
-
-  buildForm() {
-    this.form = this.fb.group({
-      parentResourceId: [null, Validators.required],
-    });
-  }
-
-  onParentResourceChange(parentId: string) {
-    debugger;
-    this.childResources$ = this._resourceService
-      .getList({ parentId: parentId, maxResultCount: 999 })
-      .pipe(map(r => r.items));
-  }
-
-  save() {
-    if (this.form.invalid) {
-      return;
-    }
-    this._reservationSystemService.create(this.form.value).subscribe(() => {
-      this.isModalOpen = false;
-      this.form.reset();
-      this.list.get();
-    });
-  }
-
-  showResourceSchedule(id: string) {}
 
   delete(id: string) {
     this.confirmation.warn('::AreYouSureToDelete', '::AreYouSure').subscribe(status => {
@@ -87,5 +43,21 @@ export class ReservationComponent implements OnInit {
         this._reservationSystemService.delete(id).subscribe(() => this.list.get());
       }
     });
+  }
+
+  openCreateReservationModal() {
+    const modalRef = this._modalService.open(CreateReservationModalComponent, {
+      size: 'lg',
+      windowClass: 'custom-modal',
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+    });
+    modalRef.result.then(
+      (res: boolean) => {
+        if (res) this.list.get();
+      },
+      dismiss => {}
+    );
   }
 }

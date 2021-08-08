@@ -10,7 +10,7 @@
     "Resource:ResourceWithSameNameExists": "A Resource with the same name is already exists.",
     "Resource:ManagersConcurrentResourceLimit": "A manager can have 5 resources at most.",
     "Reservation:ReservationItemsShouldBeGreaterThanZero": "To create a rezervasyon you should at least add one rezervation item!",
-    "Reservation:ReservationItemAvailabilityHours": "Reservations can be done for working days.",
+    "ReservationItemAvailabilityHours": "Reservations can be done for working days.",
     "Reservation:ConflictingItemFound": "Conflicting reservation item found.",
     "Permission:ReservationSystem": "Reservation System",
     "Permission:Resources": "Resource Management",
@@ -27,5 +27,6 @@
     "StudioOrStudioEquipment": "Studio or Studio Equipment",
     "MeetingRoom": "Meeting Room",
     "LibraryRoom": "Library Room"
-  }
+  },
+
 }

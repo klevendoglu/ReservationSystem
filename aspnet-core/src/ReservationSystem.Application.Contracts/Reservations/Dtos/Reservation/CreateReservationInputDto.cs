@@ -8,8 +8,6 @@ namespace ReservationSystem.Reservations.Dtos.Reservation
     {
         public string ReserverNotes { get; set; }
 
-        public Enum.Status Status { get; set; }
-
         public List<CreateReservationItemInputDto> RequestedItems { get; set; }
 
         public bool IsReservationApprovalRequired { get; set; }

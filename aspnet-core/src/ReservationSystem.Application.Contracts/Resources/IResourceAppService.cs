@@ -16,15 +16,7 @@ namespace ReservationSystem.Resources
         Task<ResourceDto> CreateAsync(CreateResourceInputDto input);
         Task<ResourceDto> UpdateAsync(Guid id, UpdateResourceInputDto input);
         Task<ResourceDto> GetAsync(Guid id);
-        Task<ResourceDto> CheckResourceAvailability(CreateReservationItemInputDto input);
-        void CheckReservationHours(CreateReservationItemInputDto input);
-        Task<ResourceScheduleOutputDto> GetResourceSchedule(Guid id);
-
         Task<PagedResultDto<ResourceDto>> GetListAsync(GetResourcesInput input);
-        Task<PagedResultDto<ResourceDto>> GetResourcesStudio(GetResourcesInput input);
-        Task<PagedResultDto<ResourceDto>> GetResourcesMeetingRoom(GetResourcesInput input);
-        Task<PagedResultDto<ResourceDto>> GetResourcesLibrary(GetResourcesInput input);
-
         Task<ListResultDto<UserDto>> GetResourceManagers();
     }
 }

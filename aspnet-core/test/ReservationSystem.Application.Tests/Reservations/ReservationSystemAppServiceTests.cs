@@ -33,15 +33,12 @@ namespace ReservationSystem.Reservations
             {
                 IsReservationApprovalRequired = false,
                 ReserverNotes = "Should reserve this item.",
-                Status = Enum.Status.Pending,
                 RequestedItems = new List<CreateReservationItemInputDto>()
                     {
                         new CreateReservationItemInputDto()
                         {
                             RequestedHours = 1,
                             StartTime = DateTime.Now.AddHours(-10),
-                            EndTime = DateTime.Now.AddHours(-8),
-                            Status = Enum.Status.Pending,
                             ResourceId = firstResource.Id
                         }
                     }

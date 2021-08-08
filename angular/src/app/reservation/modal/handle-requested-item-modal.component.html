@@ -1,0 +1,52 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ selectedChildResource.name }}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="requestedItemForm" (ngSubmit)="returnRequestedItem()">
+    <div class="form-group">
+      <label>{{ '::StartDate' | abpLocalization }}</label
+      ><span> * </span>
+      <input
+        #startDate
+        #datepicker="ngbDatepicker"
+        class="form-control"
+        name="datepicker"
+        formControlName="startDate"
+        autocomplete="off"
+        ngbDatepicker
+        (click)="datepicker.toggle()"
+      />
+    </div>
+    <div class="form-group">
+      <ngb-timepicker formControlName="startTime"></ngb-timepicker>
+    </div>
+    <div class="form-group">
+      <input
+        type="number"
+        formControlName="requestedHours"
+        #requestedHours
+        max="{{ selectedChildResource.maxReservationHours }}"
+        min="1"
+        class="form-control"
+        placeholder="{{ selectedChildResource.maxReservationHours }} Max"
+      />
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
+    {{ '::Close' | abpLocalization }}
+  </button>
+
+  <button
+    class="btn btn-primary"
+    (click)="returnRequestedItem()"
+    [disabled]="requestedItemForm.invalid"
+  >
+    <i class="fa fa-check mr-1"></i>
+    {{ '::Save' | abpLocalization }}
+  </button>
+</div>

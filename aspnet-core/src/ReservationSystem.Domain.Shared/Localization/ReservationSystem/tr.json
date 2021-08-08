@@ -10,7 +10,7 @@
     "Resource:ResourceWithSameNameExists": "Aynı isimde başka bir kaynak bulunmaktadır.",
     "Resource:ManagersConcurrentResourceLimit": "Bir yönetici en fazla 5 kaynağa sahip olabilir.",
     "Reservation:ReservationItemsShouldBeGreaterThanZero": "Rezervasyon oluşturmak için en az bir adet ekipman eklenmelidir!",
-    "Reservation:ReservationItemAvailabilityHours": "Rezervasyon hafta içi mesai saatleri içerisinde yapılabilir.",
+    "ReservationItemAvailabilityHours": "Rezervasyon hafta içi mesai saatleri içerisinde yapılabilir.",
     "Reservation:ConflictingItemFound": "Çakışan rezervasyon ekipmanı bulundu.",
     "Permission:ReservationSystem": "Rezervasyon Sistemi",
     "Permission:Resources": "Kaynak Yönetimi",

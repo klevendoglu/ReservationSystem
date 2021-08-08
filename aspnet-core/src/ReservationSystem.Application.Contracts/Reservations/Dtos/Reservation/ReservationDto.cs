@@ -12,9 +12,9 @@ namespace ReservationSystem.Reservations.Dtos.Reservation
 
         public Enum.Status Status { get; set; }
 
-        public string ReserverNotes { get; set; }
+        public string ReserverNote { get; set; }
 
-        public string ManagerNotes { get; set; }
+        public string ManagerNote { get; set; }
 
         public UserDto CreatorUser { get; set; }
 

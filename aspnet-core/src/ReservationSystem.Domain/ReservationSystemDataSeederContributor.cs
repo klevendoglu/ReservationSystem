@@ -70,7 +70,6 @@ namespace ReservationSystem
                     reservation1.Id,
                     reservation1.Id,
                     startTime: DateTime.Now,
-                    endTime: DateTime.Now.AddHours(1),
                     requestedHours: 1
                     ),
                  autoSave: true

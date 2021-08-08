@@ -17,8 +17,5 @@ namespace ReservationSystem.Reservations.Dtos.Reservation
         [Required]
         public int RequestedHours { get; set; }
 
-        public DateTime EndTime { get; set; }
-
-        public Enum.Status Status { get; set; }
     }
 }

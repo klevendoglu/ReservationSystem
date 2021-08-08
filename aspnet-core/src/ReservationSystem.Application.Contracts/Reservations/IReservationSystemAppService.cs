@@ -14,8 +14,6 @@ namespace ReservationSystem.Reservations
 
         Task<PagedResultDto<ReservationDto>> GetListAsync(GetReservationsInput input);
 
-        Task ProcessReservationAsync(ProcessReservationInput input);
-
         Task DeleteAsync(Guid id);
     }
 }
